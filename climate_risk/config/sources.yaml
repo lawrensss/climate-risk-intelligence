@@ -1,0 +1,14 @@
+sources:
+  world_bank:
+    base_url: "https://api.worldbank.org/v2"
+    indicators:
+      NY.GDP.MKTP.CD: "gdp_current_usd"
+      NV.AGR.TOTL.ZS: "agriculture_pct_gdp"
+      SP.POP.TOTL: "population"
+      EN.ATM.CO2E.PC: "co2_per_capita"
+    start_year: 1970
+    format: "json"
+    per_page: 1000
+  nasa_gistemp:
+    url: "https://data.giss.nasa.gov/gistemp/tabledata_v4/GLB.Ts+dSST.csv"
+    description: "Global surface temperature anomaly"

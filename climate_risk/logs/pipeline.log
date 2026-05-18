@@ -1,0 +1,7 @@
+2026-05-18 12:25:46,603 | INFO | World Bank: saved 982 rows
+2026-05-18 12:25:49,015 | ERROR | GISTEMP failed: Unable to parse string "***" at position 146
+2026-05-18 12:28:26,135 | INFO | World Bank: saved 982 rows
+2026-05-18 12:28:28,078 | INFO | GISTEMP: saved 146 rows
+2026-05-18 12:33:31,417 | INFO | transform_world_bank: 817 rows saved
+2026-05-18 12:33:31,448 | INFO | transform_gistemp: 56 rows saved
+2026-05-18 12:40:45,141 | INFO | Database loaded successfully \u2192 data/climate_risk.db
