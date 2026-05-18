@@ -20,6 +20,31 @@
 
 </div>
 
+## 📊 Dashboard Preview
+
+### Page 1 — Climate Overview
+![Climate Overview](images/climate_overview_screenshot.png)
+
+### Page 2 — Economic Risk
+![Economic Risk](images/economic_risk_screenshot.png)
+
+### Page 3 — Climate vs Economy
+![Climate vs Economy](images/climate_vs_economy_screenshot.png)
+
+---
+
+## ✅ Project Status
+
+| Deliverable | Status |
+|-------------|--------|
+| Python ingestion pipeline | ✅ Complete |
+| SQLite star schema database | ✅ Complete |
+| Google Colab analysis notebook | ✅ Complete |
+| Power BI 3-page interactive dashboard | ✅ Complete |
+| GitHub repository | ✅ Complete |
+
+---
+
 ## 📌 What This Project Does
 
 This system automatically:
@@ -37,25 +62,27 @@ This system automatically:
 climate-risk-intelligence/
 │
 ├── 📁 config/
-│   └── sources.yaml              # API endpoints and parameters
-│
-├── 📁 data/
-│   ├── raw/                      # Untouched API responses (parquet)
-│   ├── processed/                # Cleaned, enriched data (parquet)
-│   └── colab/                    # Exported CSVs for Colab analysis
+│   └── sources.yaml                     # API endpoints and parameters
 │
 ├── 📁 pipeline/
-│   ├── ingest.py                 # Pulls data from NASA + World Bank APIs
-│   ├── transform.py              # Cleans, fills gaps, engineers features
-│   ├── db.py                     # Loads star schema into SQLite
-│   └── export_for_colab.py       # Exports CSVs for notebook analysis
+│   ├── ingest.py                        # Pulls data from NASA + World Bank APIs
+│   ├── transform.py                     # Cleans, fills gaps, engineers features
+│   ├── db.py                            # Loads star schema into SQLite
+│   └── export_for_colab.py              # Exports CSVs for notebook analysis
 │
-├── 📁 logs/
-│   └── pipeline.log              # Full run history with timestamps
+├── 📁 notebooks/
+│   └── Climate_Risk_Analysis.ipynb      # Full Colab analysis notebook
 │
-├── fix_config.py                 # Config file generator
-├── check_db.py                   # Database verification script
-├── export_for_colab.py           # Colab export utility
+├── 📁 dashboard/
+│   └── climate_risk_dashboard.pbix      # Power BI dashboard file
+│
+├── 📁 images/
+│   ├── climate_overview_screenshot.png
+│   ├── economic_risk_screenshot.png
+│   └── climate_vs_economy_screenshot.png
+│
+├── .gitignore
+├── requirements.txt
 └── README.md
 ```
 
@@ -79,7 +106,7 @@ climate-risk-intelligence/
 | Source | What We Get | Coverage |
 |--------|-------------|----------|
 | [NASA GISTEMP v4](https://data.giss.nasa.gov/gistemp/) | Global surface temperature anomaly vs 1951–1980 baseline | 1880–2025 |
-| [World Bank API](https://data.worldbank.org/indicator) | GDP, population, agriculture % of GDP, CO2 per capita | 1970–2025 |
+| [World Bank API](https://data.worldbank.org/indicator) | GDP, population, agriculture % of GDP | 1970–2025 |
 
 ---
 
@@ -100,7 +127,7 @@ python -m venv .venv
 .venv\Scripts\activate          # Windows
 source .venv/bin/activate       # Mac/Linux
 
-pip install requests pandas pyarrow pyyaml numpy openpyxl
+pip install -r requirements.txt
 ```
 
 ### Step 2 — Run the pipeline
@@ -116,52 +143,26 @@ python pipeline/transform.py
 python pipeline/db.py
 
 # Export CSVs for Colab
-python export_for_colab.py
+python pipeline/export_for_colab.py
 ```
 
 ### Step 3 — Explore in Google Colab
 
-Upload the 4 CSV files from `data/colab/` to a new Colab notebook and run the analysis.
+Open `notebooks/Climate_Risk_Analysis.ipynb` in Google Colab and run all cells.
 
 ### Step 4 — Open the dashboard
 
-Connect Power BI Desktop to `data/climate_risk.db` via ODBC and open `climate_risk_dashboard.pbix`.
+Connect Power BI Desktop to `data/climate_risk.db` via ODBC and open `dashboard/climate_risk_dashboard.pbix`.
 
 ---
 
 ## 📈 Dashboard Pages
 
-<table>
-<tr>
-<td width="33%">
-
-**Page 1 — Climate Overview**
-- 📉 Temperature anomaly trend 1970–2025
-- 🔥 Hottest years table
-- 💰 GDP by region bar chart
-- 🎛️ Anomaly tier slicer
-
-</td>
-<td width="33%">
-
-**Page 2 — Economic Risk**
-- 📈 GDP per capita over time
-- 🌍 Population donut by region
-- 🌾 Agriculture dependence ranking
-- 🎛️ Decade slicer
-
-</td>
-<td width="33%">
-
-**Page 3 — Climate vs Economy**
-- 🌡️ Temperature anomaly by decade
-- 🥧 Anomaly tier pie chart
-- 📊 Bars + rolling average combo
-- 🎛️ Anomaly tier slicer
-
-</td>
-</tr>
-</table>
+| Page | Visuals | Slicer |
+|------|---------|--------|
+| **Climate Overview** | Temperature trend line, hottest years table, GDP by region bar chart | Anomaly tier |
+| **Economic Risk** | GDP over time, population donut, agriculture dependence ranking | Decade |
+| **Climate vs Economy** | Temperature by decade, anomaly tier pie, bars + rolling average combo | Anomaly tier |
 
 ---
 
@@ -206,7 +207,7 @@ Connect Power BI Desktop to `data/climate_risk.db` via ODBC and open `climate_ri
                      │           │
           ┌──────────▼──┐   ┌───▼──────────┐
           │  Power BI   │   │ Google Colab │
-          │  Dashboard  │   │   Analysis   │
+          │  Dashboard  │   │   Notebook   │
           └─────────────┘   └─────────────┘
 ```
 
@@ -273,15 +274,37 @@ The free World Bank API returns clean, complete data for regional aggregates. In
 
 ---
 
-## 🔮 What's Next (Phase 2)
+## 🔮 Phase 2 — Coming Next
 
-- [ ] Add EM-DAT natural disaster database to quantify economic losses per event
-- [ ] Build a country-level climate risk score (0–100) using XGBoost + SHAP
-- [ ] Add geospatial choropleth maps using GeoPandas and Folium
-- [ ] Automate daily pipeline refresh with Windows Task Scheduler
-- [ ] Expand to individual country level with gap-filling strategy
+This project is actively being expanded. Phase 2 will add:
+
+### 🌪️ New Data Source — EM-DAT Disaster Database
+Connecting real disaster event records (floods, droughts, storms)
+to economic loss figures — quantifying exactly how much each
+disaster type costs each region in USD.
+
+### 🤖 Machine Learning — Climate Risk Score
+Building a country-level risk score (0–100) using XGBoost
+with SHAP explainability — so every score can be broken down
+into exactly which factors drove it up or down.
+
+### 🗺️ Geospatial Maps — GeoPandas + Folium
+Choropleth world maps showing risk scores and economic
+vulnerability visually by geography — not just by region name.
+
+### ⚙️ Automation — Windows Task Scheduler
+The pipeline currently runs manually. Phase 2 will schedule
+it to run every night automatically and refresh the
+Power BI dashboard without any human input.
+
+### 🌍 Individual Countries — Gap Filling Strategy
+Currently using World Bank regional aggregates. Phase 2
+expands to 190 individual countries using linear interpolation
+and forward-fill to handle missing data years cleanly.
 
 ---
+
+> Phase 2 is in active development. Watch this repo for updates.
 
 ## 👤 Author
 
