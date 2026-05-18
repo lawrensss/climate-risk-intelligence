@@ -23,13 +23,13 @@
 ## 📊 Dashboard Preview
 
 ### Page 1 — Climate Overview
-![Climate Overview](images/climate_overview_screenshot.png)
+![Climate Overview](climate%20overview%20screenshot.png)
 
 ### Page 2 — Economic Risk
-![Economic Risk](images/economic_risk_screenshot.png)
+![Economic Risk](economic%20risk%20screenshot.png)
 
 ### Page 3 — Climate vs Economy
-![Climate vs Economy](images/climate_vs_economy_screenshot.png)
+![Climate vs Economy](climate%20vs%20economy%20screenshot.png)
 
 ---
 
